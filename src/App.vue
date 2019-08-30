@@ -2,17 +2,21 @@
   <div id="app">
     <!-- mutations -->
     <!-- <button @click="decrement({amout:2})">-</button> -->
-    <button @click="decrementCount({amout:2})">-</button>
+    <button @click="decrementCountAsync({amout:2})">-</button>
     <span>{{count}}</span>
     <!-- <button @click="increment">+</button> -->
-    <button @click="incrementCount">+</button>
+    <button @click="incrementCountAsync">+</button>
+
+    <hr />
+    <p>{{completedTodos}}</p>
+    <button @click="fetchDataAsync">FetchData</button>
   </div>
 </template>
 
 <script>
 import Count from "./components/Count";
 //import { mapState } from "vuex"; //一定要用花括号，花括号的意思是解钩,是es6提供的新写法。
-import { mapState, mapGetters, mapMutations } from "vuex";
+import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 export default {
   name: "app",
   components: { Count },
@@ -22,7 +26,25 @@ export default {
     "completedTodosCount",
     "getTodosById"
   ]),
-  methods:mapMutations(["incrementCount","decrementCount"])
+  methods: mapActions([
+    "incrementCountAsync",
+    "decrementCountAsync",
+    "fetchDataAsync"
+  ])
+  // methods: {
+  //   incrementCount() {
+  //     //触发actions ,dispatch（）只有异步能够触发,dispatch代表分发
+  //     this.$store.dispatch("incrementCountAsync");
+  //   },
+  //   decrementCount(n) {
+  //     this.$store.dispatch("decrementCountAsync", n);
+  //   },
+  //   fetchData() {
+  //     this.$store.dispatch("fetchDataAsync");
+  //   }
+  //}
+
+  // methods: mapMutations(["incrementCount", "decrementCount"])
   // methods: {
   //   increment() {
   //     //调用mutations里的incrementCount;
@@ -49,7 +71,7 @@ export default {
   //}
 
   //但是如果本页面有需要计算属性的地方，怎么区分呢？用范围解析符...
-  //写法四:
+  //写法三+:
   // computed: {
   //   ...mapState(["count", "todos"]),
   //   others() {}
