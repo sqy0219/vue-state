@@ -15,7 +15,7 @@ export default new Vuex.Store({   //不用花括号，是因为这里有default
     ]
   },
   getters: {
-    count: state => ++state.count,//count值还是0，只是短暂显示为1
+    count: state => state.count,//count值还是0，只是短暂显示为1
     //上面一句相当于
     //getCount(state){return ++state.count}
     completedTodos: state => state.todos.filter(todo => todo.completed),  //todo代表三个对象
@@ -36,7 +36,8 @@ export default new Vuex.Store({   //不用花括号，是因为这里有default
     //}
   },
   mutations: {
-
+    incrementCount: state => state.count++, //让count值++
+    decrementCount: (state, n) => state.count -= n.amout
   },
   actions: {
 

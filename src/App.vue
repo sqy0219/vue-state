@@ -1,18 +1,18 @@
 <template>
   <div id="app">
-    <p>{{completedTodos}}</p>
-    <p>{{count}}</p>
-    <p>{{completedTodosCount}}</p>
-    <p>{{getTodosById(3)}}</p>
-    <br />华丽的分割线
-    <Count />
+    <!-- mutations -->
+    <!-- <button @click="decrement({amout:2})">-</button> -->
+    <button @click="decrementCount({amout:2})">-</button>
+    <span>{{count}}</span>
+    <!-- <button @click="increment">+</button> -->
+    <button @click="incrementCount">+</button>
   </div>
 </template>
 
 <script>
 import Count from "./components/Count";
 //import { mapState } from "vuex"; //一定要用花括号，花括号的意思是解钩,是es6提供的新写法。
-import { mapState, mapGetters } from "vuex";
+import { mapState, mapGetters, mapMutations } from "vuex";
 export default {
   name: "app",
   components: { Count },
@@ -21,7 +21,18 @@ export default {
     "completedTodos",
     "completedTodosCount",
     "getTodosById"
-  ])
+  ]),
+  methods:mapMutations(["incrementCount","decrementCount"])
+  // methods: {
+  //   increment() {
+  //     //调用mutations里的incrementCount;
+  //     this.$store.commit("incrementCount"); //调用mutations里的东西不用.mutations，直接用commit函数即可，括号里是调用的函数名npm
+  //   },
+  //   decrement(n) {
+  //     //第一个是调用的东西，第二个是参数
+  //     this.$store.commit("decrementCount", n);
+  //   }
+  //}
   // computed: {
   //   count() {
   //     return this.$store.getters.getCount;
