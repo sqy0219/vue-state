@@ -1,7 +1,9 @@
 <template>
   <div id="app">
-    <p>{{todos}}</p>
-    {{count}}
+    <p>{{completedTodos}}</p>
+    <p>{{count}}</p>
+    <p>{{completedTodosCount}}</p>
+    <p>{{getTodosById(3)}}</p>
     <br />华丽的分割线
     <Count />
   </div>
@@ -9,16 +11,38 @@
 
 <script>
 import Count from "./components/Count";
-import { mapState } from "vuex"; //一定要用花括号，花括号的意思是解钩,是es6提供的新写法。
+//import { mapState } from "vuex"; //一定要用花括号，花括号的意思是解钩,是es6提供的新写法。
+import { mapState, mapGetters } from "vuex";
 export default {
   name: "app",
   components: { Count },
+  computed: mapGetters([
+    "count",
+    "completedTodos",
+    "completedTodosCount",
+    "getTodosById"
+  ])
+  // computed: {
+  //   count() {
+  //     return this.$store.getters.getCount;
+  //   },
+  //   completedTodos() {
+  //     return this.$store.getters.completedTodos;
+  //   },
+  //   completedTodosCount() {
+  //     return this.$store.getters.completedTodosCount;
+  //   },
+  //   getTodosById() {
+  //     return this.$store.getters.getTodosById;
+  //   }
+  //}
+
   //但是如果本页面有需要计算属性的地方，怎么区分呢？用范围解析符...
   //写法四:
-  computed: {
-    ...mapState(["count", "todos"]),
-    others() {}
-  }
+  // computed: {
+  //   ...mapState(["count", "todos"]),
+  //   others() {}
+  // }
   //写法三：
   //computed:mapState(["count","todos"])  //store文件里，state里的属性
 
